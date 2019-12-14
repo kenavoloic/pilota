@@ -1,4 +1,7 @@
-const version = () => 0.14;
+/////////////////////////////////////////////////////////////////////////
+// Version
+/////////////////////////////////////////////////////////////////////////
+const version = () => 0.16;
 
 const jsonNotes = version => {
   return {
@@ -8,40 +11,37 @@ const jsonNotes = version => {
     "Présentation": "Le juge-arbitre de pelote basque dispose d’un compteur manuel lors des parties. Ce logiciel a pour objectif de le remplacer.",
     "Spécialités": "Toutes les spécialités sauf Rebot et Pasaka, dont le décompte des points est différent.",
     "Score maximal": "Compte tenu de la diversité des spécialités, des installations, des catégories de joueurs, le score maximal varie de 5 points à 40 points. Aussi, la limite du compteur est fixée à 99 points.",
-    "Interface" : "L’onglet de couleur permet de choisir la couleur d’une équipe. Un clic sur le cadran ou sur le bouton [Plus] permet d’ajouter un point. [Moins] retranche un point. [Zéro] ramène le score à zéro.",
+    "Interface" : "L’onglet de couleur permet de sélectionner la couleur d’une équipe. Un clic sur le cadran ou sur le bouton [Plus] permet d’ajouter un point. [Moins] retranche un point. [Zéro] ramène le score à zéro.",
     "Langages": "HTML5, CSS3 et surtout JavaScript."
   };
 };
 
-//Objets : compteur et compteurInterface
-const Compteur = function(_totalPointsGagnants){
+const listeNotes = liste => {
+  
+  let clefs = Object.keys(liste);
+  let retour = clefs.map(x => {
+    let titre = document.createElement('dt');
+    titre.appendChild(document.createTextNode(x));
+    let libelle = document.createElement('dd');
+    libelle.appendChild(document.createTextNode(liste[x]));
+    return [titre, libelle];
+  });
 
-  const totalPointsGagnants = (_totalPointsGagnants == null || _totalPointsGagnants <= 0) ? 99 : parseInt(_totalPointsGagnants,10);
-  const plafond = totalPointsGagnants;
-  const plancher = 0;
-  let scoreActuel = 0;
-
-  const plus = () => {
-    return (scoreActuel < plafond) ? ++scoreActuel : plafond;
-  };
-
-  const moins = () => {
-    return (scoreActuel > plancher) ? --scoreActuel : plancher;
-  };
-
-  const zero = () => {
-    scoreActuel = 0;
-    return scoreActuel;
-  };
-
-  const getScore = () => scoreActuel;
-  const getPlafond = () => plafond;
-  const getPlancher = () => plancher;  
-
-  return {plus, moins, zero, getScore, getPlafond, getPlancher};
+  const reducteur = (acc, valeur) => acc.concat(valeur);
+  let tous = retour.reduce(reducteur, []);
+  
+  let dl = document.createElement('dl');
+  tous.forEach(x => dl.appendChild(x));
+  return dl;
 };
 
+const _creationNotes = (fonctionListeNotes, fonctionJson, fonctionVersion) => fonctionListeNotes(fonctionJson(fonctionVersion()));
+
+const creationNotes = () =>_creationNotes(listeNotes, jsonNotes, version);
+
+/////////////////////////////////////////////////////////////////////////
 //Outils pour l’interface
+/////////////////////////////////////////////////////////////////////////
 const hexadecimalToDecimal = couleur => {
   if(couleur.length == 7){
     return couleur.replace('#','').match(/.{1,2}/g).map(x => parseInt(x, 16));
@@ -74,6 +74,38 @@ const indexAleatoire = () => Math.floor(Math.random() * 100);
 
 const formatageNombre = nombre => String(nombre).padStart(2, '0');
 
+/////////////////////////////////////////////////////////////////////////
+//Objets : compteur et compteurInterface
+/////////////////////////////////////////////////////////////////////////
+const Compteur = function(_totalPointsGagnants){
+
+  const testTotalPointsGagnants = Math.abs(parseInt(_totalPointsGagnants, 10));
+  const totalPointsGagnants = testTotalPointsGagnants > 0 ? testTotalPointsGagnants : 99;
+  const plafond = totalPointsGagnants;
+  const plancher = 0;
+  let scoreActuel = 0;
+
+  const plus = () => {
+    return (scoreActuel < plafond) ? ++scoreActuel : plafond;
+  };
+
+  const moins = () => {
+    return (scoreActuel > plancher) ? --scoreActuel : plancher;
+  };
+
+  const zero = () => {
+    scoreActuel = 0;
+    return scoreActuel;
+  };
+
+  const getScore = () => scoreActuel;
+  const getPlafond = () => plafond;
+  const getPlancher = () => plancher;  
+
+  return {plus, moins, zero, getScore, getPlafond, getPlancher};
+};
+
+
 const CompteurInterface = function(_totalPointsGagnants){
 
   const compteur = new Compteur(_totalPointsGagnants);
@@ -82,7 +114,6 @@ const CompteurInterface = function(_totalPointsGagnants){
   const identifiant = suffixeAleatoire();
   const suffixe = `_${identifiant}`; 
 
-  //const cadre = document.createElement('div');
   const cadre = document.createElement('article');
   const nomCouleur = document.createElement('label');
   const couleur = document.createElement('label');
@@ -127,7 +158,6 @@ const CompteurInterface = function(_totalPointsGagnants){
   zero.addEventListener('click', remiseAzero);
   couleur.addEventListener('click', changementCouleur);
 
-
   //Écouteurs d’événements
   function incrementation(e) {
     let score = compteur.plus();
@@ -162,19 +192,15 @@ const CompteurInterface = function(_totalPointsGagnants){
   return {getCadre, getIdentifiant};
 };
 
+/////////////////////////////////////////////////////////////////////////
+// Initialisation
+/////////////////////////////////////////////////////////////////////////
 const principal = document.getElementById('principal');
-let objectifScore = 99;
-const c1 = new CompteurInterface(objectifScore);
-const c2 = new CompteurInterface(objectifScore);
 
-principal.appendChild(c1.getCadre());
-principal.appendChild(c2.getCadre());
+let scoreMaximum = 99;
 
+const ci1 = new CompteurInterface(scoreMaximum);
+const ci2 = new CompteurInterface(scoreMaximum);
 
-// window.addEventListener('orientationchange', changementMode);
-
-// function changementMode(e){
-//   let orientation = screen.orientation;
-//   console.log(orientation.type);
-// }
-
+principal.appendChild(ci1.getCadre());
+principal.appendChild(ci2.getCadre());

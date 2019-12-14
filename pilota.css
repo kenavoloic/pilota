@@ -1,39 +1,48 @@
 :root {
   @import url('https://fonts.googleapis.com/css?family=Cousine&display=swap');
+  @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap');
+  @import url('https://fonts.googleapis.com/css?family=Varela+Round&display=swap');
+
+
   --texture: radial-gradient(#259adc 15%, #666666 15%) 8px 8px, radial-gradient(#3838ff 10%, #7fc0e5 10%) 5px 5px;
   --textureTaille: 5px 5px;
-  --textureCouleur: #acc8d9;
-  --policeNombre: 'Cousine', monospace;
-  --policeBouton:  monospace, 'Cousine', sans;
+  --policeSansSerif : sans, 'Varela Round', sans;
+  --policeBouton:  var(--policeSansSerif);
   --policeBoutonTaille: 3vw; 
 
+  --cadreFond: #666666;
+  --cadrePadding:5px 10px;
   --cadreBordureRayon:3px;
   --cadreBordureCouleur: #202020;
+  --cadreBordureStyle: solid;
 
-  --policeCadran: monospace;
+  --policeCadran: 'Source Code Pro', monospace;
   --policeCadranTaille: 20vw;
-  --cadranCouleur:#6edb00;
+  --cadranCouleur: #6edb00;
   --cadranFond:#202020;
+  --cadranPadding:10px;
 
   --bordureRayon: 8px;
   --labelBordureRayon:5px;
   --bordureLargeur:thick;
 
-  --labelFond:rgba(255,36,36, 1.0);
+  --labelCouleur: #ffffff;
+  --labelFond: rgba(255,36,36, 1.0);
   --labelBordure: rgba(255,36,36, 0.75);
-  --labelPoliceTaille:4vw;
+  --labelBordureType: solid;
+  --labelPolice: var(--policeSansSerif);
+  --labelPoliceTaille: 4vw;
 
   --labelTextShadow: 4px -2px 0px #202020, 3px -1px 0px rgba(0,0,0,0.2);
-
 
   --razCouleur: rgba(255,255,255,.95); 
   --razFond: rgba(255,41,41,.85);
   --razBordureCouleur: rgba(255,255,255,.95);
 
-  --poussoirCouleur:#6edb00;
-  --poussoirFond:#202020;
-  --poussoirGraisse:bold;
-  
+  --poussoirCouleur: #6edb00;
+  --poussoirFond: #202020;
+  --poussoirGraisse: bold;
+  --poussoirBordureStyle: ridge;
 
   --ombre1: 0px 0px 3px black, 1px 0px 2px rgba(0,0,0,.5);
   --ombre2: 0px 0px 3px rgba(255,255,255,.8), 1px 0px 2px rgba(255,255,255,.25);
@@ -41,7 +50,7 @@
   --transition: all 750ms ease-out;
 }
 
-*, *:before, $:after {
+*, *:before, *:after {
   margin:0;
   padding:0;
   box-sizing:border-box;
@@ -60,32 +69,23 @@ body {
   background-size: var(--textureTaille);
 }
 
-.elementCache {
-  display:none;
-}
 
 main#principal {
   width:98vw;
+  padding:1vw 0;
 }
 
 article.cadre {
+  background-color:var(--cadreFond);
   border-radius:var(--bordureRayon);
-  border:var(--bordureLargeur) solid var(--cadreBordureCouleur);
-  /* padding:10px;
-     margin:10px; */
-  /* margin:10px 10px; */
-  background-color:#666666;
-  /* width:45vw;
-     height:45vw; */
-  /* width:40vw;
-     height:40vw; */
+  border:var(--bordureLargeur) var(--cadreBordureStyle) var(--cadreBordureCouleur);
   transition: var(--transition);
+  padding:var(--cadrePadding);
 }
-
 
 label {
   display:block;
-  font-family:sans-serif;
+  font-family:var(--labelPolice);
   font-size:var(--labelPoliceTaille); 
   text-align:center;
   border-width:var(--bordureLargeur);
@@ -96,12 +96,12 @@ label {
 
 label.couleur {
   background: var(--labelFond); 
-  border:var(--bordureLargeur) solid var(--labelBordure);
+  border:var(--bordureLargeur) var(--labelBordureType) var(--labelBordure);
   cursor:pointer;
 }
 
 label.nomCouleur {
-  color:#ffffff;
+  color: var(--labelCouleur);
   background: inherit;
   border:var(--bordureLargeur) solid inherit;
   text-shadow: var(--labelTextShadow);
@@ -109,11 +109,13 @@ label.nomCouleur {
 }
 
 .cadran {
+  font-family:var(--policeCadran);
+  font-size:var(--policeCadranTaille);
   color:var(--cadranCouleur);
   background-color:var(--cadranFond);
-  font-size:var(--policeCadranTaille);
   border-radius:var(--bordureRayon);
   box-shadow:var(--ombre2);
+  padding:var(--cadranPadding);
   cursor:pointer;
   transition: var(--transition);
 }
@@ -126,9 +128,8 @@ label.nomCouleur {
   background-color:var(--poussoirFond);
   font-weight:var(--poussoirGraisse);
   border-radius:var(--bordureRayon);
+  border-style:var(--poussoirBordureStyle);
   box-shadow: var(--ombre1);
-  padding: 0.15em;
-  margin: 0.15em;
   cursor:pointer;
 }
 
@@ -140,14 +141,11 @@ label.nomCouleur {
 }
 
 .remiseAzero {
+  font-size: var(--policeBoutonTaille);
+  font-family: var(--policeBouton);
   color: var(--razCouleur);
   background: var(--razFond);
   border-color:var(--razBordureCouleur);
-  text-align:center;
-  font-size: var(--policeBoutonTaille);
-  font-family: var(--policeBouton);
-  overflow:hidden;
-  text-overflow:ellipsis;
   box-shadow: var(--ombre1);
   transition: var(--transition);
   cursor:pointer;
@@ -159,51 +157,10 @@ label.nomCouleur {
   border-color: var(--razFond);  
 }
 
-/* Grille par défaut = mode [PAYSAGE] */
-
-.cadre {
-  display:grid;
-  /* grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-     grid-template-rows:1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; */
-  grid-template-columns: repeat(10,1fr);
-  grid-template-rows: repeat(10,1fr);
-  grid-gap:10px;
-}
-
-label.nomCouleur {
-  grid-column:1/11;
-  grid-row:1/2;
-}
-
-label.couleur {
-  grid-column:1/11;
-  grid-row:2/3;
-}
-
-.cadran {
-  grid-column:1/11;
-  grid-row:3/9;
-}
-
-.plus {
-  grid-column:1/4;
-  grid-row:9/11;
-}
-
-.remiseAzero {
-  grid-column:4/8;
-  grid-row:9/11;
-}
-
-.moins {
-  grid-column:8/11;
-  grid-row:9/11;
-}
-
+/* Media queries : portrait / paysage */
+/* [Portrait] */
 @media all and (orientation:portrait){
   main#principal {
-    /* display:flex;
-       flex-direction:column;     */
     display:grid;
     place-items:center center;
   }
@@ -216,6 +173,7 @@ label.couleur {
     display:grid;
     grid-template-columns: repeat(10,1fr);
     grid-template-rows: repeat(9,1fr);
+    grid-gap:10px;
   }
   
   label.couleur {
@@ -251,10 +209,9 @@ label.couleur {
   }
 }
 
+/* Paysage */
 @media all and (orientation:landscape){
   main#principal {
-    /* display:flex;
-       flex-direction:row; */
     display:grid;
     grid-template-columns:repeat(2,1fr);
     place-items:center center;
