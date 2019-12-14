@@ -13,4 +13,4 @@ Compte tenu de la diversité des spécialités, des installations, des catégori
 ## Interface
 L’onglet de couleur permet de sélectionner la couleur d’une équipe. Un clic sur le cadran ou sur le bouton [Plus] permet d’ajouter un point. [Moins] retranche un point. [Zéro] ramène le score à zéro.
 ## Langages
- HTML5, CSS3 et JavaScript.
+HTML5, CSS3 et JavaScript.
