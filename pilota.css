@@ -3,12 +3,11 @@
   @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap');
   @import url('https://fonts.googleapis.com/css?family=Varela+Round&display=swap');
 
-
   --texture: radial-gradient(#259adc 15%, #666666 15%) 8px 8px, radial-gradient(#3838ff 10%, #7fc0e5 10%) 5px 5px;
   --textureTaille: 5px 5px;
   --policeSansSerif : 'Varela Round', sans;
   --policeBouton:  var(--policeSansSerif);
-  --policeBoutonTaille: 8vw; 
+  --policeBoutonTaille: 2vw; 
 
   --cadreFond: #666666;
   --cadrePadding:5px 10px;
@@ -160,6 +159,11 @@ label.nomCouleur {
 /* Media queries : portrait / paysage */
 /* [Portrait] */
 @media all and (orientation:portrait){
+
+  :root {
+    --policeBoutonTaille: 6vw;
+  }
+
   main#principal {
     display:grid;
     place-items:center center;
