@@ -3,12 +3,11 @@ Pilota !
 ## Objet
 Compteur de points pour les parties de pelote basque.
 ## Version
-0.16
+0.17
 ## Présentation
 Le juge-arbitre de pelote basque dispose d’un compteur manuel lors des parties. Ce logiciel a pour objectif de proposer une alternative digitale pour les cas où le compteur est resté à la maison.
 ## Spécialités
-En dehors du Rebot et de Pasaka, dont le décompte des points est différent, le compteur peut être utilisé dans toutes les
-autres spécialités.
+Toutes les spécialités sauf Rebot et Pasaka, dont le décompte des points est différent.
 ## Score maximal
 Compte tenu de la diversité des spécialités, des installations, des catégories de joueurs, le score maximal varie de 5 points à 40 points. Aussi, la limite du compteur est fixée à 99 points.
 ## Interface

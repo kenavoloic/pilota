@@ -6,9 +6,9 @@
 
   --texture: radial-gradient(#259adc 15%, #666666 15%) 8px 8px, radial-gradient(#3838ff 10%, #7fc0e5 10%) 5px 5px;
   --textureTaille: 5px 5px;
-  --policeSansSerif : sans, 'Varela Round', sans;
+  --policeSansSerif : 'Varela Round', sans;
   --policeBouton:  var(--policeSansSerif);
-  --policeBoutonTaille: 3vw; 
+  --policeBoutonTaille: 8vw; 
 
   --cadreFond: #666666;
   --cadrePadding:5px 10px;
@@ -17,7 +17,7 @@
   --cadreBordureStyle: solid;
 
   --policeCadran: 'Source Code Pro', monospace;
-  --policeCadranTaille: 20vw;
+  --policeCadranTaille: 25vw;
   --cadranCouleur: #6edb00;
   --cadranFond:#202020;
   --cadranPadding:10px;
@@ -31,7 +31,7 @@
   --labelBordure: rgba(255,36,36, 0.75);
   --labelBordureType: solid;
   --labelPolice: var(--policeSansSerif);
-  --labelPoliceTaille: 4vw;
+  --labelPoliceTaille: 10vw;
 
   --labelTextShadow: 4px -2px 0px #202020, 3px -1px 0px rgba(0,0,0,0.2);
 
@@ -72,7 +72,7 @@ body {
 
 main#principal {
   width:98vw;
-  padding:1vw 0;
+  padding:3vh 0;
 }
 
 article.cadre {
@@ -203,7 +203,7 @@ label.nomCouleur {
 
   article.cadre {
     width:90vw;
-    height:90vw;
+    height:80vw;
     padding:5px;
     margin:5px;
   }
